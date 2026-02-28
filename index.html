@@ -1,42 +1,121 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="A special Women's Day surprise — crafted with love, code, and a whole lot of heart.">
   <link rel="shortcut icon" href="images/gift.png" type="image/x-icon">
   <link rel="stylesheet" href="css/index.css">
-
-  <!-- Document Title -->
-  <title>Happy Womens Day - Aoudumber Bade</title>
+  <title>Happy Women's Day 💗</title>
 </head>
 
 <body>
-  <!-- Background -->
+  <!-- Animated Background -->
   <div class="night"></div>
 
-  <!-- Title -->
-  <h1 class="title">Happy Women's Day My Sweeeet Gurlll! 💗</h1>
+  <!-- Title with staggered character animation -->
+  <h1 class="title" id="main-title"></h1>
 
-  <!-- Button -->
-  <div style="position: absolute; top: 60vh; width: 100%; display: flex; justify-content: center;">
-    <a href="./love.html" class="btn">
-        <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle">
-            <path
-              d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z">
-            </path>
-          </svg>
-    
-
+  <!-- CTA Button -->
+  <div class="btn-container">
+    <a href="./love.html" class="btn" id="open-btn">
+      <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle">
+        <path
+          d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z">
+        </path>
+      </svg>
       <span class="text">Open</span>
     </a>
   </div>
 
-	<div id="copy">
-		<p class="text-center text-white text-sm">OG Creator <a
-			href="https://www.instagram.com/aoudumber.dev/reels/#">@aoudumber.dev</a></p>
-	  </div>
+  <!-- Letter Trigger -->
+  <div class="letter-trigger">
+    <button class="letter-trigger-btn" id="letter-open-btn">✉ Read My Letter</button>
+  </div>
 
-  <script src="js/index.js"></script>
+  <!-- Letter Modal Overlay -->
+  <div class="letter-overlay" id="letter-overlay">
+    <div class="letter-card" id="letter-card">
+      <button class="letter-close" id="letter-close-btn" aria-label="Close letter">✕</button>
+      <p class="letter-date">March 8, 2026</p>
+      <h2 class="letter-greeting">To the Most Amazing Woman</h2>
+      <div class="letter-body">
+        <p>
+          Every line of code I write, every pixel I place — it all pales in comparison
+          to the masterpiece that is you. You are strength wrapped in grace, courage
+          dressed in kindness, and a million sunrises compressed into one smile.
+        </p>
+        <p>
+          On this Women's Day, I don't just celebrate what you do — I celebrate who you
+          are. The way you light up a room, the way you make the impossible look effortless,
+          the way you turn ordinary moments into memories I'll carry forever.
+        </p>
+        <p>
+          Thank you for being you. Unapologetically, beautifully, magnificently you. 💗
+        </p>
+      </div>
+      <p class="letter-signature">With all my love, forever yours</p>
+    </div>
+  </div>
+
+  <div id="copy">
+    <p class="text-center text-white text-sm">OG Creator <a
+        href="https://www.instagram.com/aoudumber.dev/reels/#">@aoudumber.dev</a></p>
+  </div>
+
+  <script>
+    // ══════════════════════════════════════
+    // Staggered title character animation
+    // ══════════════════════════════════════
+    (function () {
+      const titleText = "Happy Women's Day My Sweeeet Gurlll! 💗";
+      const titleEl = document.getElementById('main-title');
+      let charIndex = 0;
+
+      titleText.split('').forEach((char, i) => {
+        const span = document.createElement('span');
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        span.style.setProperty('--delay', `${0.6 + i * 0.04}s`);
+        titleEl.appendChild(span);
+      });
+    })();
+
+    // ══════════════════════════════════════
+    // Letter modal logic
+    // ══════════════════════════════════════
+    (function () {
+      const overlay = document.getElementById('letter-overlay');
+      const openBtn = document.getElementById('letter-open-btn');
+      const closeBtn = document.getElementById('letter-close-btn');
+
+      openBtn.addEventListener('click', () => {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+
+      closeBtn.addEventListener('click', () => {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+  </script>
+
   <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/mouse_slide.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/clicklove.js"></script>
 </body>

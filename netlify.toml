@@ -1,0 +1,65 @@
+# ══════════════════════════════════════════════
+# Netlify Configuration — Women's Day Surprise
+# Static HTML/CSS/JS — no build step required
+# ══════════════════════════════════════════════
+
+[build]
+  # Static site: just publish the root directory
+  publish = "."
+  # No build command needed
+  command = "echo 'Static site — no build step!'"
+
+# ──────────────────────────────────────────────
+# Custom Headers — Security, Caching, Performance
+# ──────────────────────────────────────────────
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Cache static assets aggressively
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML pages should revalidate
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# ──────────────────────────────────────────────
+# Redirects — Clean URLs & Fallback
+# ──────────────────────────────────────────────
+
+# SPA-style fallback (optional, useful if you add client-side routing later)
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200
+
+# Redirect common typos
+[[redirects]]
+  from = "/love"
+  to = "/love.html"
+  status = 301
+
+[[redirects]]
+  from = "/surprise"
+  to = "/index.html"
+  status = 301

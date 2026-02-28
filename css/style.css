@@ -1,54 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
 body {
-  /* 爱心跳动,抖音ID:不吃蟹黄 作品参考bootstrapmb,引入three基于canvas制作 */
-  /* background: rgb(0, 0, 0); */
   overflow: hidden;
   margin: 0;
   background-color: #ff1e7c;
-
-  background: linear-gradient(rgba(255, 255, 255, 0.77), rgba(255, 39, 125, 0.84)), url('./img/background.jpg');
-
-  
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.77), rgba(255, 39, 125, 0.84)),
+    url('../img/background.jpg');
+  background-size: cover;
 }
 
 canvas {
   background: transparent !important;
-  display: block;   /* canvas को पूरे स्क्रीन पर फैलाने के लिए */
+  display: block;
 }
-
 
 .title {
   position: absolute;
   bottom: -32px;
   left: 50%;
   transform: translateX(-50%);
-  text-shadow: 0 0 20px white;
-  text-shadow: 0 0 20px white;
+  text-shadow:
+    0 0 30px rgba(255, 255, 255, 0.6),
+    0 0 60px rgba(255, 30, 124, 0.15);
   letter-spacing: 4px;
   padding-bottom: 67px;
   text-transform: uppercase;
   font-weight: 700;
   font-size: 2.2rem;
   color: #29181d;
+  font-family: 'Playfair Display', 'Georgia', serif;
+  white-space: nowrap;
+  animation: titlePulse 3s ease-in-out infinite;
 }
 
+@keyframes titlePulse {
 
+  0%,
+  100% {
+    text-shadow:
+      0 0 30px rgba(255, 255, 255, 0.6),
+      0 0 60px rgba(255, 30, 124, 0.15);
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    text-shadow:
+      0 0 40px rgba(255, 255, 255, 0.8),
+      0 0 80px rgba(255, 30, 124, 0.25);
+    transform: translateX(-50%) scale(1.02);
+  }
+}
 
 #copy {
   position: fixed;
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1rem;
+  font-size: 0.85rem;
+  z-index: 5;
 }
 
 #copy a {
   text-decoration: none;
   color: #191919d7;
+  transition: color 300ms ease;
 }
 
-  #copy p {
+#copy a:hover {
+  color: #ff177f;
+}
+
+#copy p {
   color: #fff6f9;
   text-align: center;
-  font-weight: 700;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
   cursor: pointer;
-  }
+}
