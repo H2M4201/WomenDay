@@ -4,22 +4,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=div, initial-scale=1.0">
-	<meta name="title" content="3D Cube - For Crush | Aoudumber Bade">
-    <meta name="github" content="https://github.com/Aoudumber-Bade">
-    <link rel="shortcut icon" href="./logo.ico" type="image/x-icon" />
+  <meta name="title" content="3D Cube - For Crush | Aoudumber Bade">
+  <meta name="github" content="https://github.com/Aoudumber-Bade">
+  <link rel="shortcut icon" href="./logo.ico" type="image/x-icon" />
   <title>Happy Womens Day - Aoudumber Bade</title>
   <link rel="stylesheet" href="./css/style.css">
+  <style>
+    body {
+      overflow: hidden;
+      margin: 0;
+      background-color: #050005 !important;
+      background: radial-gradient(circle at center, #1a000d 0%, #050005 100%) !important;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+    }
+
+    /* Three.js canvas should be at the back */
+    #three-canvas {
+      z-index: -2;
+    }
+
+    /* Pinkboard 2D particles on top of 3D but below UI */
+    #pinkboard {
+      z-index: -1;
+    }
+
+    .title {
+      position: absolute;
+      bottom: -5%;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-family: sans-serif;
+      text-shadow: 0 0 10px rgba(255, 100, 150, 0.8);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .title span.emoji {
+      font-size: 1.8em;
+      vertical-align: middle;
+      margin-left: 18px;
+    }
+
+    #copy {
+      position: absolute;
+      bottom: 5px;
+      width: 100%;
+      z-index: 10;
+      opacity: 0.5;
+    }
+  </style>
 
 </head>
 
 <body>
 
-  <h1 class="title">I Love You 💗</h1>
+  <h1 class="title"><span class="emoji">🌹🌹🌹</span></h1>
 
-	<div id="copy">
-		<p class="text-center text-white text-sm">OG Creator <a
-			href="https://www.instagram.com/aoudumber.dev/reels/#">@aoudumber.dev</a></p>
-	  </div>
+  <canvas id="pinkboard"></canvas>
+
+  <!-- <div id="copy">
+    <p class="text-center text-white text-sm">OG Creator <a
+        href="https://www.instagram.com/aoudumber.dev/reels/#">@aoudumber.dev</a></p>
+  </div> -->
 
   <script src='./js/three.min.js'></script>
   <!-- <script src='./js/MeshSurfaceSampler.js'></script> -->
@@ -1026,7 +1086,7 @@
 
   </script>
 
-   <script>
+  <script>
     var settings = {
       particles: {
         length: 500, // maximum amount of particles
@@ -1180,45 +1240,31 @@
         particles = new ParticlePool(settings.particles.length),
         particleRate = settings.particles.length / settings.particles.duration, // particles/sec
         time;
-      // get point on heart with -PI <= t <= PI
+      // get point on a heart curve
       function pointOnHeart(t) {
         return new Point(
           160 * Math.pow(Math.sin(t), 3),
-          130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
+          130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t)
         );
-
       }
 
-      // creating the particle image using a dummy canvas
-
+      // creating the particle image — a small filled rose-red circle
       var image = (function () {
         var canvas = document.createElement('canvas'),
           context = canvas.getContext('2d');
         canvas.width = settings.particles.size;
         canvas.height = settings.particles.size;
-        // helper function to create the path
-        function to(t) {
-          var point = pointOnHeart(t);
-          point.x = settings.particles.size / 2 + point.x * settings.particles.size / 350;
-          point.y = settings.particles.size / 2 - point.y * settings.particles.size / 350;
-          return point;
-        }
-        // create the path
+        var cx = settings.particles.size / 2;
+        var cy = settings.particles.size / 2;
+        var r = settings.particles.size / 2.2;
         context.beginPath();
-        var t = -Math.PI;
-        var point = to(t);
-        context.moveTo(point.x, point.y);
-        while (t < Math.PI) {
-          t += 0.01; // baby steps!
-          point = to(t);
-          context.lineTo(point.x, point.y);
-        }
+        context.arc(cx, cy, r, 0, Math.PI * 2);
         context.closePath();
-        // create the fill
-        context.fillStyle = '#ff30c5';
-        // context.fillStyle = '#ea80b0';
+        var grad = context.createRadialGradient(cx, cy, 0, cx, cy, r);
+        grad.addColorStop(0, '#ff4d6d');
+        grad.addColorStop(1, '#ff0033');
+        context.fillStyle = grad;
         context.fill();
-        // create the image
         var image = new Image();
         image.src = canvas.toDataURL();
         return image;
@@ -1233,12 +1279,12 @@
         time = newTime;
         // clear canvas
         context.clearRect(0, 0, canvas.width, canvas.height);
-        // create new particles
+        // create new particles along the heart curve
         var amount = particleRate * deltaTime;
         for (var i = 0; i < amount; i++) {
           var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
           var dir = pos.clone().length(settings.particles.velocity);
-          particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x, -dir.y);
+          particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y - 20, dir.x, -dir.y);
         }
         // update and draw particles
         particles.update(deltaTime);
@@ -1259,7 +1305,7 @@
   </script>
   <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/mouse_slide.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/clicklove.js"></script>
-  
+
 </body>
 
 </html>
