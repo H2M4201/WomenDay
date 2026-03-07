@@ -25,7 +25,7 @@ controls.maxDistance = 5;
 controls.minDistance = 0.4;
 
 const group = new THREE.Group();
-group.position.y = 0.1; // Slightly centered
+group.position.y = 0.4; // Moved up from 0.1 to avoid overlapping with roses
 scene.add(group);
 
 // ──────────────────────────────────────────────────────────────
@@ -141,7 +141,7 @@ class Spike {
 
 function updateCameraPosition() {
   const isMobile = window.innerWidth < 768;
-  camera.position.z = isMobile ? 2.5 : 1.2;
+  camera.position.z = isMobile ? 3.5 : 1.8; // Increased distance to make heart smaller
 }
 
 updateCameraPosition();
