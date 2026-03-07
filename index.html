@@ -69,13 +69,35 @@
     (function () {
       const titleText = "Happy Women's Day Gemini! ♊ 💗";
       const titleEl = document.getElementById('main-title');
+
+      const words = titleText.split(' ');
       let charIndex = 0;
 
-      [...titleText].forEach((char, i) => {
-        const span = document.createElement('span');
-        span.textContent = char === ' ' ? '\u00A0' : char;
-        span.style.setProperty('--delay', `${0.6 + i * 0.04}s`);
-        titleEl.appendChild(span);
+      words.forEach((word, wordIdx) => {
+        // Create a wrapper for the word to keep characters together
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'word';
+
+        [...word].forEach((char) => {
+          const span = document.createElement('span');
+          span.textContent = char;
+          span.className = 'char';
+          span.style.setProperty('--delay', `${0.6 + charIndex * 0.04}s`);
+          wordSpan.appendChild(span);
+          charIndex++;
+        });
+
+        titleEl.appendChild(wordSpan);
+
+        // Add a space after the word (except the last one)
+        if (wordIdx < words.length - 1) {
+          const space = document.createElement('span');
+          space.innerHTML = '&nbsp;';
+          space.className = 'char';
+          space.style.setProperty('--delay', `${0.6 + charIndex * 0.04}s`);
+          titleEl.appendChild(space);
+          charIndex++;
+        }
       });
     })();
 
