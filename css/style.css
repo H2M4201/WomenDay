@@ -3,8 +3,8 @@
 body {
   overflow: hidden;
   margin: 0;
-  background-color: #050005;
-  background: radial-gradient(circle at center, #1a000d 0%, #050005 100%);
+  background-color: #0a000f;
+  background: radial-gradient(circle at center, #1a002e 0%, #05000a 100%);
   background-size: cover;
 }
 
@@ -26,7 +26,7 @@ canvas {
   transform: translateX(-50%);
   text-shadow:
     0 0 30px rgba(255, 255, 255, 0.6),
-    0 0 60px rgba(255, 30, 124, 0.15);
+    0 0 60px rgba(179, 136, 255, 0.3);
   letter-spacing: 4px;
   padding-bottom: 67px;
   text-transform: uppercase;

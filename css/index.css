@@ -10,9 +10,12 @@
 
 :root {
   --dark-color: #000;
-  --accent-pink: #ff177f;
-  --accent-rose: rgba(255, 39, 125, 0.84);
-  --accent-soft: rgba(255, 255, 255, 0.77);
+  --accent-pink: #b388ff;
+  /* Soft Purple */
+  --accent-rose: rgba(179, 136, 255, 0.8);
+  /* Soft Purple Translucent */
+  --accent-lavender: #d1c4e9;
+  --accent-soft: rgba(255, 255, 255, 0.85);
   --text-dark: #29181d;
   --glass-bg: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.18);
@@ -28,7 +31,7 @@
   width: 100%;
   height: 100%;
   filter: blur(0.1vmin);
-  background: linear-gradient(135deg, var(--accent-soft), var(--accent-rose)),
+  background: linear-gradient(135deg, var(--accent-lavender), var(--accent-rose)),
     url('../img/background.jpg');
   background-size: cover;
   animation: bgShift 12s ease-in-out infinite alternate;

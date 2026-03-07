@@ -46,7 +46,7 @@ function buildHeart() {
     tri(a, b, c, col); tri(a, c, d, col);
   }
 
-  const red = [1.0, 0.05, 0.2]; // Vibrant heart red
+  const purple = [0.7, 0.53, 1.0]; // Soft purple theme
 
   const resolution = 60;
   for (let i = 0; i < resolution; i++) {
@@ -97,7 +97,7 @@ function buildHeart() {
       const p3 = getPoint(u2, v2);
       const p4 = getPoint(u1, v2);
 
-      quad(p1, p2, p3, p4, red);
+      quad(p1, p2, p3, p4, purple);
     }
   }
 
@@ -112,7 +112,7 @@ const vertexColorsMode = (THREE.VertexColors !== undefined) ? THREE.VertexColors
 
 let spikePositions = [];
 const spikeGeo = new THREE.BufferGeometry();
-const spikeMat = new THREE.LineBasicMaterial({ color: 0xff4d6d }); // Deeper pink/red
+const spikeMat = new THREE.LineBasicMaterial({ color: 0xb388ff }); // Soft purple sparkles
 const lines = new THREE.LineSegments(spikeGeo, spikeMat);
 group.add(lines);
 
@@ -138,6 +138,14 @@ class Spike {
     this.two = this.one.clone().add(this.one.clone().setLength(this.scale));
   }
 }
+
+function updateCameraPosition() {
+  const isMobile = window.innerWidth < 768;
+  camera.position.z = isMobile ? 2.5 : 1.2;
+}
+
+updateCameraPosition();
+window.addEventListener('resize', updateCameraPosition);
 
 let spikes = [];
 let heartMesh = null;
